@@ -1,0 +1,17 @@
+from bs4 import BeautifulSoup
+
+def parse_htm_html(file_path):
+    
+    data = file_path
+    with open(data, mode="r+") as inf:
+        txt = inf.read()
+        soup = BeautifulSoup(txt, 'html.parser')
+    
+        for a in soup.findAll('a'):
+            if a.string is not None:
+                if old_url in a.string:
+                    a.string = a.string.replace(old_url, new_url)
+                    a["href"] = a.string
+    
+    with open (data, "wb") as outf:
+       outf.write(soup.prettify("utf-8"))
